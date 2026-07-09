@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Descartes Among Us</title>
+<style>
+body{margin:0;background:#2d3138;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+.top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:20px}
+.card{background:#8d939b22;border:2px solid #666;border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.name{background:transparent;border:none;color:#fff;font-size:20px;font-weight:bold;width:45%}
+.btns{display:flex;gap:8px}
+.b{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;opacity:.6}
+.b.active{border-color:#fff;opacity:1;box-shadow:0 0 10px #fff}
+.c{background:#6eefff}.l{background:#7cff6b}.y{background:#ffc542}.r{background:#ff4545}
+</style></head><body>
+<div class="wrap">
+<div class="top"><label>Jugadores:</label>
+<select id="n"></select><button onclick="gen()">Generar</button></div>
+<div id="g" class="grid"></div></div>
+<script>
+const s=document.getElementById('n');for(let i=1;i<=15;i++){let o=document.createElement('option');o.text=o.value=i;if(i==15)o.selected=true;s.add(o)}
+function gen(){
+ let g=document.getElementById('g');g.innerHTML='';
+ for(let i=1;i<=+n.value;i++){
+  let d=document.createElement('div');d.className='card';
+  d.innerHTML=`<input class=name value="Jugador ${i}"><div class=btns>
+  <div class="b c"></div><div class="b l"></div><div class="b y"></div><div class="b r"></div></div>`;
+  let bs=d.querySelectorAll('.b');
+  bs.forEach(b=>b.onclick=()=>{
+    if(b.classList.contains('active')){b.classList.remove('active');return;}
+    bs.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  });
+  g.appendChild(d);
+ }
+}
+gen();
+</script></body></html>
